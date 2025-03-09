@@ -1,0 +1,28 @@
+
+@SERVER_URL = http://127.0.0.1:8080
+@COOKIE = LMaAy-2WDiLRcXayU7pBtCkgcqeNa1GT2Q5gVhdqRxs;;
+
+
+
+### Get all events
+GET {{SERVER_URL}}/ticket HTTP/1.1
+
+
+### Create ticket
+POST {{SERVER_URL}}/ticket/buy/67b238877f2cb825f36e4a44 HTTP/1.1
+content-type: application/json
+
+{
+
+    "attendee_name": "Njabulo MKhwanazi",
+    "attendee_email": "njabulo@email.com"
+                 
+}
+
+
+
+### Redeem Ticket
+GET {{SERVER_URL}}/ticket/redeem/TE865NHP HTTP/1.1
+
+
+

@@ -1,0 +1,84 @@
+
+@SERVER_URL = http://127.0.0.1:8080
+# @SERVER_URL = https://nkambo-events.onrender.com
+@COOKIE = LMaAy-2WDiLRcXayU7pBtCkgcqeNa1GT2Q5gVhdqRxs;;
+
+
+
+### Get all events
+GET {{SERVER_URL}}/event HTTP/1.1
+
+### Get event by ID
+GET {{SERVER_URL}}/event/67b251e2e8343edab22c3ef6 HTTP/1.1
+
+
+### Create event
+POST {{SERVER_URL}}/event/create HTTP/1.1
+content-type: application/json
+Cookie: session=LR4lCG954sjHa8iSI6nQv_CjWzgVlEhcS6eD53d8Pf4; Domain=localhost; HttpOnly; Path=/
+
+{
+    "name": "test event5",
+    "description": "just an event",
+    "location": "123 address",
+    "start_date": "12 June 2024",
+    "end_date": "12 June 2024",
+    "start_time": "20:00",
+    "end_time": "20:00",
+    "ticket_price": 300,
+    "ticket_quantity": 3
+}
+
+# https://camtwrczbpurcfjcxjrj.supabase.co/storage/v1/object/public/nkambo_agency/suppeer_exciting_event_cover_image?
+
+### Upload image
+POST {{SERVER_URL}}/event/cover/upload/67b10f20a0c5797187e0987d HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="images.jpeg"
+Content-Type: image/jpeg
+
+< ./images.jpeg
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+
+### Change Cover image
+POST {{SERVER_URL}}/event/cover/67b10f20a0c5797187e0987d HTTP/1.1
+content-type: application/json
+Cookie: session=P835d1BuxbUEKvYPx_I8HzuibYujdOy1eSOfjkgFHLE; Domain=localhost; HttpOnly; Path=/
+
+{
+    "cover_url": "http://localhost:8080/event/cover/test-event5-67b10f20a0c5797187e0987d-images.jpeg"
+}
+
+### add guest
+POST {{SERVER_URL}}/event/guest HTTP/1.1
+content-type: application/json
+Cookie: session=LR4lCG954sjHa8iSI6nQv_CjWzgVlEhcS6eD53d8Pf4; Domain=localhost; HttpOnly; Path=/
+
+{
+    "event_id": "67c653c639206fa01b2cbc40",
+    "guest": {
+        "guest_id": "67c6530c647d4bb550b9387f",
+        "sessions": [
+            {
+                "date": "25 June 2025",
+                "start_time": "10:30",
+                "end_time": "11:30"
+            }
+        ]
+    }
+}
+
+
+### Find a guest in an event
+POST {{SERVER_URL}}/event/event_guest HTTP/1.1
+content-type: application/json
+Cookie: session=LR4lCG954sjHa8iSI6nQv_CjWzgVlEhcS6eD53d8Pf4; Domain=localhost; HttpOnly; Path=/
+
+{
+    "event_id": "67c653c639206fa01b2cbc40",
+    "guest_id": "67c6530c647d4bb550b9387f"
+}
